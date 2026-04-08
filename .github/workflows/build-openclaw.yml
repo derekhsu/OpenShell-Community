@@ -17,9 +17,9 @@ on:
   workflow_dispatch:
     inputs:
       openclaw_version:
-        description: 'OpenClaw version to install (default: 2026.3.28)'
+        description: 'OpenClaw version to install (default: 2026.4.5)'
         required: false
-        default: '2026.3.28'
+        default: '2026.4.5'
 
 env:
   REGISTRY: docker.io
@@ -57,7 +57,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-            type=raw,value=${{ github.event.inputs.openclaw_version || '2026.3.28' }},enable={{is_default_branch}}
+            type=raw,value=${{ github.event.inputs.openclaw_version || '2026.4.5' }},enable={{is_default_branch}}
             type=sha,prefix=,enable=true
 
       - name: Build and push OpenClaw image
@@ -69,6 +69,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            OPENCLAW_VERSION=${{ github.event.inputs.openclaw_version || '2026.3.28' }}
+            OPENCLAW_VERSION=${{ github.event.inputs.openclaw_version || '2026.4.5' }}
           cache-from: type=gha,scope=openclaw
           cache-to: type=gha,mode=max,scope=openclaw
