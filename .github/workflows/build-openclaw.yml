@@ -69,6 +69,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
+            BASE_IMAGE=ghcr.io/derekhsu/openshell-community/sandboxes/base:latest
             OPENCLAW_VERSION=${{ github.event.inputs.openclaw_version || '2026.4.5' }}
           cache-from: type=gha,scope=openclaw
           cache-to: type=gha,mode=max,scope=openclaw
