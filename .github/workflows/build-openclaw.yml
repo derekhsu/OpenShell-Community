@@ -20,6 +20,11 @@ on:
         description: 'OpenClaw version to install (default: 2026.4.24)'
         required: false
         default: '2026.4.24'
+      skip_latest:
+        description: 'Skip tagging this build as latest'
+        required: false
+        type: boolean
+        default: false
 
 env:
   REGISTRY: docker.io
@@ -56,7 +61,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' && github.event.inputs.skip_latest != 'true' }}
             type=raw,value=${{ github.event.inputs.openclaw_version || '2026.4.24' }},enable={{is_default_branch}}
             type=sha,prefix=,enable=true
 
