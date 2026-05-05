@@ -15,7 +15,7 @@ FROM ${BASE_IMAGE}
 USER root
 
 # Build argument for OpenClaw version
-ARG OPENCLAW_VERSION=2026.4.5
+ARG OPENCLAW_VERSION=2026.5.4
 
 # Install OpenClaw CLI (pinned to fix GHSA-rchv-x836-w7xp, GHSA-6mgf-v5j7-45cr,
 # GHSA-5wcw-8jjv-m286)
