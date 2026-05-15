@@ -17,9 +17,9 @@ on:
   workflow_dispatch:
     inputs:
       openclaw_version:
-        description: 'OpenClaw version to install (default: 2026.5.4)'
+        description: 'OpenClaw version to install (default: 2026.5.12)'
         required: false
-        default: '2026.5.4'
+        default: '2026.5.12'
       skip_latest:
         description: 'Skip tagging this build as latest'
         required: false
@@ -62,7 +62,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' && github.event.inputs.skip_latest != 'true' }}
-            type=raw,value=${{ github.event.inputs.openclaw_version || '2026.5.4' }},enable={{is_default_branch}}
+            type=raw,value=${{ github.event.inputs.openclaw_version || '2026.5.12' }},enable={{is_default_branch}}
             type=sha,prefix=,enable=true
 
       - name: Build and push OpenClaw image
@@ -75,6 +75,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             BASE_IMAGE=ghcr.io/derekhsu/openshell-community/sandboxes/base:latest
-            OPENCLAW_VERSION=${{ github.event.inputs.openclaw_version || '2026.5.4' }}
+            OPENCLAW_VERSION=${{ github.event.inputs.openclaw_version || '2026.5.12' }}
           cache-from: type=gha,scope=openclaw
           cache-to: type=gha,mode=max,scope=openclaw
